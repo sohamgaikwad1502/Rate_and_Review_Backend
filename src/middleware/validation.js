@@ -43,6 +43,7 @@ const validateStoreCreation = [
     body('name').isLength({ min: 1, max: 100 }).withMessage('Store name is required (max 100 characters)'),
     body('email').isEmail().withMessage('Valid store email address is required'),
     body('address').isLength({ min: 1, max: 400 }).withMessage('Store address is required (max 400 characters)'),
+    body('owner_id').optional().notEmpty().withMessage('Owner ID must be provided for admin store creation'),
     handleValidationErrors
 ];
 
@@ -55,22 +56,18 @@ const validateStoreUpdate = [
 
 
 const validateRatingSubmission = [
+    body('store_id').notEmpty().withMessage('Store ID is required'),
     body('rating').isInt({ min: 1, max: 5 }).withMessage('Rating must be a number between 1 and 5'),
+    body('comment').optional().isLength({ max: 500 }).withMessage('Comment must not exceed 500 characters'),
     handleValidationErrors
 ];
 
 const validateRatingUpdate = [
     body('rating').isInt({ min: 1, max: 5 }).withMessage('Rating must be a number between 1 and 5'),
+    body('comment').optional().isLength({ max: 500 }).withMessage('Comment must not exceed 500 characters'),
     handleValidationErrors
 ];
 
-
-const validateRoleAssignment = [
-    body('role')
-        .isIn(['admin', 'user', 'store_owner'])
-        .withMessage('Role must be one of: admin, user, store_owner'),
-    handleValidationErrors
-];
 
 const validateUserCreation = [
     body('name').isLength({ min: 20, max: 60 }).withMessage('Name must be 20-60 characters'),
@@ -90,12 +87,9 @@ module.exports = {
     validateSignup,
     validateLogin,
     validatePasswordChange,
-    
-    // Future validations 
     validateStoreCreation,
     validateStoreUpdate,
     validateRatingSubmission,
     validateRatingUpdate,
-    validateRoleAssignment,
     validateUserCreation
 };
