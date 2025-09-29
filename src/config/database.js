@@ -22,7 +22,6 @@ const testConnection = async () => {
         client.release(); 
         return true;
     } catch (error) {
-        console.error('Database connection failed:', error.message);
         return false;
     }
 };
@@ -32,11 +31,9 @@ const query = async (text, params) => {
     try {
         const result = await pool.query(text, params);
         const duration = Date.now() - start;
-        console.log('Executed query', { text, duration, rows: result.rowCount });
         
         return result;
     } catch (error) {
-        console.error('Query error:', error.message);
         throw error;
     }
 };
@@ -47,7 +44,6 @@ const getClient = async () => {
 
 const closePool = async () => {
     await pool.end();
-    console.log('Database connection pool closed');
 };
 
 module.exports = {

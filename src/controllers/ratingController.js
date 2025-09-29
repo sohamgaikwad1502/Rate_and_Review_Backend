@@ -53,7 +53,7 @@ const submitRating = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Submit rating error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while submitting rating'
@@ -99,7 +99,7 @@ const getStoreRatings = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Get store ratings error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while fetching store ratings'
@@ -133,7 +133,7 @@ const getMyRatings = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Get my ratings error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while fetching your ratings'
@@ -185,7 +185,7 @@ const updateMyRating = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Update rating error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while updating rating'
@@ -230,7 +230,7 @@ const deleteMyRating = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Delete rating error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while deleting rating'
@@ -269,7 +269,7 @@ const getRatingById = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Get rating by ID error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while fetching rating'

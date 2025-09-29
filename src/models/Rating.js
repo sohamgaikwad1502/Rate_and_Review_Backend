@@ -13,7 +13,7 @@ const createRating = async (ratingData) => {
         const result = await query(sql, [user_id, store_id, rating, comment]);
         return result.rows[0];
     } catch (error) {
-        console.error('Error creating rating:', error);
+
         throw error;
     }
 };
@@ -31,7 +31,7 @@ const findRatingById = async (ratingId) => {
         const result = await query(sql, [ratingId]);
         return result.rows[0] || null;
     } catch (error) {
-        console.error('Error finding rating by ID:', error);
+
         throw error;
     }
 };
@@ -49,7 +49,7 @@ const getRatingsByStore = async (storeId) => {
         const result = await query(sql, [storeId]);
         return result.rows;
     } catch (error) {
-        console.error('Error getting ratings by store:', error);
+
         throw error;
     }
 };
@@ -67,7 +67,7 @@ const getRatingsByUser = async (userId) => {
         const result = await query(sql, [userId]);
         return result.rows;
     } catch (error) {
-        console.error('Error getting ratings by user:', error);
+
         throw error;
     }
 };
@@ -82,7 +82,7 @@ const findExistingRating = async (userId, storeId) => {
         const result = await query(sql, [userId, storeId]);
         return result.rows[0] || null;
     } catch (error) {
-        console.error('Error finding existing rating:', error);
+
         throw error;
     }
 };
@@ -101,7 +101,7 @@ const updateRating = async (ratingId, updateData) => {
         const result = await query(sql, [rating, comment, ratingId]);
         return result.rows[0];
     } catch (error) {
-        console.error('Error updating rating:', error);
+
         throw error;
     }
 };
@@ -112,7 +112,7 @@ const deleteRating = async (ratingId) => {
         const result = await query(sql, [ratingId]);
         return result.rows[0];
     } catch (error) {
-        console.error('Error deleting rating:', error);
+
         throw error;
     }
 };
@@ -148,7 +148,7 @@ const getAverageRating = async (storeId) => {
             }
         };
     } catch (error) {
-        console.error('Error calculating average rating:', error);
+
         throw error;
     }
 };
@@ -166,7 +166,7 @@ const getRatingStats = async () => {
         const result = await query(sql);
         return result.rows[0];
     } catch (error) {
-        console.error('Error getting rating statistics:', error);
+
         throw error;
     }
 };

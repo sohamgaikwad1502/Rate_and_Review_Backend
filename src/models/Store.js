@@ -13,7 +13,6 @@ const createStore = async (storeData) => {
         const result = await query(sql, [name, email, address, owner_id]);
         return result.rows[0];
     } catch (error) {
-        console.error('Error creating store:', error);
         throw error;
     }
 };
@@ -30,7 +29,7 @@ const findStoreById = async (storeId) => {
         const result = await query(sql, [storeId]);
         return result.rows[0] || null;
     } catch (error) {
-        console.error('Error finding store by ID:', error);
+
         throw error;
     }
 };
@@ -41,7 +40,7 @@ const findStoreByEmail = async (email) => {
         const result = await query(sql, [email]);
         return result.rows[0] || null;
     } catch (error) {
-        console.error('Error finding store by email:', error);
+
         throw error;
     }
 };
@@ -58,7 +57,7 @@ const getAllStores = async () => {
         const result = await query(sql);
         return result.rows;
     } catch (error) {
-        console.error('Error getting all stores:', error);
+
         throw error;
     }
 };
@@ -74,7 +73,7 @@ const getStoresByOwner = async (ownerId) => {
         const result = await query(sql, [ownerId]);
         return result.rows;
     } catch (error) {
-        console.error('Error getting stores by owner:', error);
+
         throw error;
     }
 };
@@ -93,7 +92,7 @@ const updateStore = async (storeId, updateData) => {
         const result = await query(sql, [name, email, address, storeId]);
         return result.rows[0];
     } catch (error) {
-        console.error('Error updating store:', error);
+
         throw error;
     }
 };
@@ -103,7 +102,7 @@ const deleteStore = async (storeId) => {
         const result = await query(sql, [storeId]);
         return result.rows[0];
     } catch (error) {
-        console.error('Error deleting store:', error);
+
         throw error;
     }
 };
@@ -114,7 +113,7 @@ const storeExistsByEmail = async (email) => {
         const result = await query(sql, [email]);
         return result.rows.length > 0;
     } catch (error) {
-        console.error('Error checking store existence:', error);
+
         throw error;
     }
 };
@@ -131,7 +130,7 @@ const getStoreStats = async () => {
         const result = await query(sql);
         return result.rows[0];
     } catch (error) {
-        console.error('Error getting store statistics:', error);
+
         throw error;
     }
 };
@@ -177,7 +176,7 @@ const getAllStoresWithFilters = async (filters = {}, sorting = {}) => {
         return result.rows;
         
     } catch (error) {
-        console.error('Error in getAllStoresWithFilters:', error);
+
         throw new Error('Failed to get stores with filters');
     }
 };
