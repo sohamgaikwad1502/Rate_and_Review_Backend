@@ -99,46 +99,95 @@ const userExistsByEmail = async (email) => {
 };
 
 
-const getAllUsers = async () => {
-    try {
-        const queryText = `
-            SELECT id, name, email, address, role, created_at
-            FROM users 
-            ORDER BY created_at DESC
-        `;
-        
-        const result = await query(queryText);
-        return result.rows;
-        
-    } catch (error) {
-        throw new Error('Failed to get users');
-    }
-};
-
-
 const getUserStats = async () => {
     try {
-        const queryText = `
+        const sql = `
             SELECT 
                 COUNT(*) as total_users,
                 COUNT(CASE WHEN role = 'admin' THEN 1 END) as total_admins,
                 COUNT(CASE WHEN role = 'user' THEN 1 END) as total_users_normal,
-                COUNT(CASE WHEN role = 'store_owner' THEN 1 END) as total_store_owners
+                COUNT(CASE WHEN role = 'store_owner' THEN 1 END) as total_store_owners,
+                COUNT(CASE WHEN created_at >= NOW() - INTERVAL '30 days' THEN 1 END) as users_this_month
             FROM users
         `;
         
-        const result = await query(queryText);
+        const result = await query(sql);
         const stats = result.rows[0];
         
         return {
             total_users: parseInt(stats.total_users),
             total_admins: parseInt(stats.total_admins),
             total_users_normal: parseInt(stats.total_users_normal),
-            total_store_owners: parseInt(stats.total_store_owners)
+            total_store_owners: parseInt(stats.total_store_owners),
+            users_this_month: parseInt(stats.users_this_month)
         };
         
     } catch (error) {
         throw new Error('Failed to get user statistics');
+    }
+};
+
+// ==========================================
+// GET ALL USERS WITH FILTERS AND SORTING (For Admin)
+// ==========================================
+const getAllUsersWithFilters = async (filters = {}, sorting = {}) => {
+    try {
+        let queryText = `
+            SELECT u.id, u.name, u.email, u.address, u.role, u.created_at,
+                   CASE 
+                       WHEN u.role = 'store_owner' THEN (
+                           SELECT AVG(r.rating) 
+                           FROM ratings r 
+                           JOIN stores s ON r.store_id = s.id 
+                           WHERE s.owner_id = u.id
+                       )
+                       ELSE NULL 
+                   END as average_rating
+            FROM users u
+            WHERE 1=1
+        `;
+        
+        const queryParams = [];
+        let paramCount = 0;
+        
+        // Add filters
+        if (filters.name) {
+            paramCount++;
+            queryText += ` AND LOWER(u.name) LIKE LOWER($${paramCount})`;
+            queryParams.push(`%${filters.name}%`);
+        }
+        
+        if (filters.email) {
+            paramCount++;
+            queryText += ` AND LOWER(u.email) LIKE LOWER($${paramCount})`;
+            queryParams.push(`%${filters.email}%`);
+        }
+        
+        if (filters.address) {
+            paramCount++;
+            queryText += ` AND LOWER(u.address) LIKE LOWER($${paramCount})`;
+            queryParams.push(`%${filters.address}%`);
+        }
+        
+        if (filters.role) {
+            paramCount++;
+            queryText += ` AND u.role = $${paramCount}`;
+            queryParams.push(filters.role);
+        }
+        
+        // Add sorting
+        const validSortFields = ['name', 'email', 'role', 'created_at'];
+        const sortBy = validSortFields.includes(sorting.sortBy) ? sorting.sortBy : 'created_at';
+        const sortOrder = sorting.sortOrder === 'asc' ? 'ASC' : 'DESC';
+        
+        queryText += ` ORDER BY u.${sortBy} ${sortOrder}`;
+        
+        const result = await query(queryText, queryParams);
+        return result.rows;
+        
+    } catch (error) {
+        console.error('Error in getAllUsersWithFilters:', error);
+        throw new Error('Failed to get users with filters');
     }
 };
 
@@ -148,6 +197,6 @@ module.exports = {
     findUserById,
     updateUserPassword,
     userExistsByEmail,
-    getAllUsers,
-    getUserStats
+    getUserStats,
+    getAllUsersWithFilters
 };
