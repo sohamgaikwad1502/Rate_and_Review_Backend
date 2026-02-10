@@ -12,11 +12,8 @@ const {
 
 
 router.get('/dashboard', authenticateToken, requireStoreOwner, getMyStoreDashboard);
-
 router.get('/ratings/users', authenticateToken, requireStoreOwner, getUsersWhoRatedMyStores);
-
 router.get('/ratings/users/:storeId', authenticateToken, requireStoreOwner, getUsersWhoRatedMyStores);
-
 router.get('/store/:storeId/stats', authenticateToken, requireStoreOwner, getMyStoreRatingStats);
 
 module.exports = router;

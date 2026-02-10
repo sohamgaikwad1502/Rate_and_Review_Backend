@@ -31,7 +31,7 @@ const getDashboardStats = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Get dashboard stats error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while fetching dashboard statistics'
@@ -77,7 +77,7 @@ const createUser = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Admin create user error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while creating user'
@@ -127,7 +127,7 @@ const getAllUsers = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Admin get all users error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while fetching users'
@@ -179,7 +179,7 @@ const getAllStoresAdmin = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Admin get all stores error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while fetching stores'
@@ -234,7 +234,7 @@ const getUserDetails = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Admin get user details error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while fetching user details'
@@ -288,7 +288,7 @@ const createStore = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Admin create store error:', error);
+
         res.status(500).json({
             success: false,
             message: 'Server error while creating store'

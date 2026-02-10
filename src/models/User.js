@@ -17,7 +17,6 @@ const createUser = async (userData) => {
         
         const result = await query(queryText, [name, email, hashedPassword, address, role]);
         
-        console.log('New user created:', email);
         return result.rows[0];
         
     } catch (error) {
@@ -77,7 +76,6 @@ const updateUserPassword = async (userId, newPassword) => {
             throw new Error('User not found');
         }
         
-        console.log('Password updated for user:', userId);
         return true;
         
     } catch (error) {
@@ -186,7 +184,6 @@ const getAllUsersWithFilters = async (filters = {}, sorting = {}) => {
         return result.rows;
         
     } catch (error) {
-        console.error('Error in getAllUsersWithFilters:', error);
         throw new Error('Failed to get users with filters');
     }
 };
