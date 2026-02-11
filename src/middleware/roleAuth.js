@@ -17,7 +17,6 @@ const requireAdmin = (req, res, next) => {
         next();
         
     } catch (error) {
-        console.error('Admin role check error:', error);
         res.status(500).json({
             success: false,
             message: 'Server error while checking admin permissions'
@@ -44,7 +43,6 @@ const requireStoreOwner = (req, res, next) => {
         next();
         
     } catch (error) {
-        console.error('Store owner role check error:', error);
         res.status(500).json({
             success: false,
             message: 'Server error while checking store owner permissions'

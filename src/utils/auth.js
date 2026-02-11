@@ -5,7 +5,6 @@ const hashPassword = async (password) => {
         const hashedPassword = await bcrypt.hash(password, 12);
         return hashedPassword;
     } catch (error) {
-        console.error('Error hashing password:', error);
         throw new Error('Password hashing failed');
     }
 };
@@ -15,7 +14,6 @@ const comparePassword = async (password, hashedPassword) => {
         const isMatch = await bcrypt.compare(password, hashedPassword);
         return isMatch;
     } catch (error) {
-        console.error('Error comparing password:', error);
         throw new Error('Password comparison failed');
     }
 };
@@ -25,7 +23,6 @@ const generateToken = (payload, expiresIn = '24h') => {
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn });
         return token;
     } catch (error) {
-        console.error('Error creating token:', error);
         throw new Error('Token creation failed');
     }
 };
@@ -36,7 +33,6 @@ const verifyToken = (token) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         return decoded;
     } catch (error) {
-        console.error('Error verifying token:', error);
         throw new Error('Invalid or expired token');
     }
 };

@@ -29,6 +29,7 @@ const signup = async (req, res) => {
         });
         
     } catch (error) {
+        console.error('Error during signup:', error.message);
         res.status(500).json({ success: false, message: 'Failed to create account' });
     }
 };
@@ -57,6 +58,7 @@ const login = async (req, res) => {
         });
         
     } catch (error) {
+        console.error('Error during login:', error.message);
         res.status(500).json({ success: false, message: 'Login failed' });
     }
 };
@@ -81,6 +83,7 @@ const getProfile = async (req, res) => {
         });
         
     } catch (error) {
+        console.error('Error fetching profile:', error.message);
         res.status(500).json({ success: false, message: 'Failed to get profile' });
     }
 };
@@ -105,7 +108,19 @@ const changePassword = async (req, res) => {
         res.json({ success: true, message: 'Password changed successfully' });
         
     } catch (error) {
+        console.error('Error changing password:', error.message);
         res.status(500).json({ success: false, message: 'Failed to change password' });
+    }
+};
+
+const logout = async (req, res) => {
+    try {
+        res.json({ 
+            success: true, 
+            message: 'Logged out successfully. Please remove the token from client storage.' 
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Logout failed' });
     }
 };
 
@@ -113,5 +128,6 @@ module.exports = {
     signup,
     login,
     getProfile,
-    changePassword
+    changePassword,
+    logout
 };

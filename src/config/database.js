@@ -14,11 +14,8 @@ const pool = new Pool({
 const testConnection = async () => {
     try {
         const client = await pool.connect();
-        console.log('Database connected successfully');
-        
-        const result = await client.query('SELECT NOW()');
-        console.log('Database time:', result.rows[0].now);
-        
+        console.log("Database Connected Successfully")
+        await client.query('SELECT NOW()');
         client.release(); 
         return true;
     } catch (error) {
@@ -27,11 +24,8 @@ const testConnection = async () => {
 };
 
 const query = async (text, params) => {
-    const start = Date.now();
     try {
         const result = await pool.query(text, params);
-        const duration = Date.now() - start;
-        
         return result;
     } catch (error) {
         throw error;

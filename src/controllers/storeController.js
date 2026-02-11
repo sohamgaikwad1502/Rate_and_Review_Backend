@@ -39,7 +39,7 @@ const createStore = async (req, res) => {
         });
         
     } catch (error) {
-
+        console.error('Error creating store:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while creating store'
@@ -107,7 +107,7 @@ const getAllStores = async (req, res) => {
         });
         
     } catch (error) {
-
+        console.error('Error fetching stores:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while fetching stores'
@@ -155,7 +155,7 @@ const getStoreById = async (req, res) => {
         });
         
     } catch (error) {
-
+        console.error('Error fetching store:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while fetching store'
@@ -188,7 +188,7 @@ const getMyStores = async (req, res) => {
         });
         
     } catch (error) {
-
+        console.error('Error fetching user stores:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while fetching your stores'
@@ -245,7 +245,7 @@ const updateStore = async (req, res) => {
         });
         
     } catch (error) {
-
+        console.error('Error updating store:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while updating store'
@@ -288,7 +288,7 @@ const deleteStore = async (req, res) => {
         });
         
     } catch (error) {
-
+        console.error('Error deleting store:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while deleting store'

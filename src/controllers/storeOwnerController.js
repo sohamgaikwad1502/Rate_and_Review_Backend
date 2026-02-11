@@ -57,7 +57,7 @@ const getMyStoreDashboard = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Store owner dashboard error:', error);
+        console.error('Error fetching store owner dashboard:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while fetching dashboard data'
@@ -132,7 +132,7 @@ const getUsersWhoRatedMyStores = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Get users who rated my stores error:', error);
+        console.error('Error fetching users who rated stores:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while fetching users who rated your stores'
@@ -190,7 +190,7 @@ const getMyStoreRatingStats = async (req, res) => {
         });
         
     } catch (error) {
-        console.error('Get my store rating stats error:', error);
+        console.error('Error fetching store rating stats:', error.message);
         res.status(500).json({
             success: false,
             message: 'Server error while fetching store rating statistics'
